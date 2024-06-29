@@ -22,9 +22,18 @@ document.addEventListener('keydown', function (event) {
             digit3.className = 'digit';
         }
 
+        // Function to generate a random number excluding 56 to 94
+        function generateRandomNumber() {
+            let number;
+            do {
+                number = Math.floor(Math.random() * 100) + 1;
+            } while (number >= 56 && number <= 94);
+            return number;
+        }
+
         // Start fast random counter
         counter = setInterval(function () {
-            const randomCounterNumber = Math.floor(Math.random() * 101) + 1;
+            const randomCounterNumber = generateRandomNumber();
             updateDigits(randomCounterNumber);
         }, 100);
 
@@ -36,7 +45,7 @@ document.addEventListener('keydown', function (event) {
             clearInterval(counter);
 
             counter = setInterval(function () {
-                const randomCounterNumber = Math.floor(Math.random() * 100) + 1;
+                const randomCounterNumber = generateRandomNumber();
                 updateDigits(randomCounterNumber);
             }, 300);
 
@@ -46,7 +55,7 @@ document.addEventListener('keydown', function (event) {
             // Stop the slow counter and set final random number after another 2 seconds
             setTimeout(function () {
                 clearInterval(counter);
-                const randomNumber = Math.floor(Math.random() * 100) + 1;
+                const randomNumber = generateRandomNumber();
                 updateDigits(randomNumber);
 
                 // Trigger confetti multiple times to fill the space
@@ -65,7 +74,7 @@ document.addEventListener('keydown', function (event) {
                         return clearInterval(interval);
                     }
 
-                    const particleCount = 200 * (timeLeft / duration);
+                    const particleCount = 50 * (timeLeft / duration);
                     confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
                     confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
                 }, 250);
